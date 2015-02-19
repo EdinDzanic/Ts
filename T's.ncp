@@ -1,0 +1,192 @@
+<Project>
+  <Name>T's</Name>
+  <ProjectItem type="NClass.DiagramEditor.ClassDiagram.Diagram" assembly="NClass.DiagramEditor, Version=2.4.1823.0, Culture=neutral, PublicKeyToken=null">
+    <Name>Diagram</Name>
+    <Language>CSharp</Language>
+    <Entities>
+      <Entity type="Class">
+        <Name>Menu</Name>
+        <Access>Public</Access>
+        <Location left="214" top="10" />
+        <Size width="217" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public string Name { get; set; }</Member>
+        <Member type="Property">public Point Location { get; set; }</Member>
+        <Member type="Property">public SpriteFont Font { get; set; }</Member>
+        <Member type="Property">public List&lt;MenuItem&gt; MenuItems { get; }</Member>
+        <Member type="Constructor">public Menu()</Member>
+        <Member type="Method">public void HandleInput()</Member>
+        <Member type="Method">public void Draw(GameTime gameTime)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>MenuItem</Name>
+        <Access>Public</Access>
+        <Location left="463" top="10" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>RenderManager</Name>
+        <Access>Public</Access>
+        <Location left="139" top="300" />
+        <Size width="304" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private SpriteBatch spriteBatch</Member>
+        <Member type="Method">public void Draw(DrawableComponent drawableComponent)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>DrawableComponent</Name>
+        <Access>Public</Access>
+        <Location left="786" top="148" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">Vector2 position</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Comment">
+        <Text>foreach(var comp in drawables)
+{
+     renderManager.Draw(comp);
+}</Text>
+        <Location left="463" top="325" />
+        <Size width="201" height="75" />
+      </Entity>
+      <Entity type="Class">
+        <Name>DrawableComponentText</Name>
+        <Access>Public</Access>
+        <Location left="722" top="425" />
+        <Size width="175" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">string text</Member>
+        <Member type="Field">SpriteFont font</Member>
+        <Member type="Field">Color color</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>DrawableComponentFont</Name>
+        <Access>Public</Access>
+        <Location left="962" top="425" />
+        <Size width="190" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">Texture2D texture</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+    </Entities>
+    <Relationships>
+      <Relationship type="Generalization" first="5" second="3">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="6" second="3">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+    </Relationships>
+  </ProjectItem>
+  <ProjectItem type="NClass.DiagramEditor.ClassDiagram.Diagram" assembly="NClass.DiagramEditor, Version=2.4.1823.0, Culture=neutral, PublicKeyToken=null">
+    <Name>RenderEngine</Name>
+    <Language>CSharp</Language>
+    <Entities>
+      <Entity type="Class">
+        <Name>RenderManager</Name>
+        <Access>Public</Access>
+        <Location left="78" top="43" />
+        <Size width="235" height="98" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">public void Draw(List&lt;Drawables&gt; drawables)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Interface">
+        <Name>IDrawable</Name>
+        <Access>Public</Access>
+        <Location left="46" top="233" />
+        <Size width="184" height="82" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">virtual void Draw(Graphics graphics)</Member>
+      </Entity>
+      <Entity type="Class">
+        <Name>Drawable2D</Name>
+        <Access>Public</Access>
+        <Location left="46" top="384" />
+        <Size width="190" height="103" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">public override void Draw(Graphics graphics)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Comment">
+        <Text>RenderManager's Draw method calls the draw methods of all drawables.</Text>
+        <Location left="389" top="43" />
+        <Size width="160" height="75" />
+      </Entity>
+      <Entity type="Structure">
+        <Name>Position</Name>
+        <Access>Public</Access>
+        <Location left="971" top="24" />
+        <Size width="162" height="111" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">public int X</Member>
+        <Member type="Field">public int Y</Member>
+      </Entity>
+      <Entity type="Class">
+        <Name>TextureAtlas</Name>
+        <Access>Public</Access>
+        <Location left="750" top="24" />
+        <Size width="219" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private Texture2D texture</Member>
+        <Member type="Field">private int columns</Member>
+        <Member type="Field">private int rows</Member>
+        <Member type="Property">public Position CurrentFrame { get; set; }</Member>
+        <Member type="Property">public Texture2D Texture { get; }</Member>
+        <Member type="Method">public void GetSourceRectangle()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>GameObject</Name>
+        <Access>Public</Access>
+        <Location left="614" top="291" />
+        <Size width="251" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">string name</Member>
+        <Member type="Property">public DrawableComponent drawable { get; set; }</Member>
+        <Member type="Property">public PositionComponent position { get; set; }</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Graphics</Name>
+        <Access>Public</Access>
+        <Location left="304" top="221" />
+        <Size width="233" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">SpriteBatch spriteBatch</Member>
+        <Member type="Field">GraphicsDevice graphicsDevice</Member>
+        <Member type="Property">public SpriteBatch SpriteBatch { get; }</Member>
+        <Member type="Property">public GraphicsDevice GraphicsDevice { get; }</Member>
+        <Member type="Constructor">public Graphics(GraphicsDevice graphicsDevice)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>IDrawableComponent</Name>
+        <Access>Public</Access>
+        <Location left="915" top="291" />
+        <Size width="178" height="96" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">public virtual IDrawable CreateDrawable()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+    </Entities>
+    <Relationships>
+      <Relationship type="Realization" first="2" second="1">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Comment" first="3" second="0">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+      </Relationship>
+    </Relationships>
+  </ProjectItem>
+</Project>
