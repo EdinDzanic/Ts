@@ -158,7 +158,7 @@ namespace Ts
                 int x = fallingBlock.X;
                 int y = fallingBlock.Y;
 
-                bool IsInLastColumn = (fallingBlock.X == grid.Count);
+                bool IsInLastColumn = (fallingBlock.X == grid[y].Count - 1);
 
                 if (IsInLastColumn)
                 {
