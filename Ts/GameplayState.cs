@@ -61,6 +61,8 @@ namespace Ts
             // call update of the game logic class 
             if (InputManager.KeyPressed(Keys.Left))
                 field.MoveLeft();
+            if (InputManager.KeyPressed(Keys.Right))
+                field.MoveRight();
         }
 
         public void Draw(GameTime gameTime)
