@@ -19,7 +19,7 @@ namespace Ts
             Y = y;
         }
     }
-    
+
     public class Field
     {
         private Vector2 position;
@@ -44,7 +44,7 @@ namespace Ts
         {
             grid = new List<List<CellInfo>>();
             fallingBlocks = new List<Position>();
-            
+
             Width = width;
             Height = height;
             CellSize = cellSize;
@@ -80,6 +80,7 @@ namespace Ts
             }
 
             CreateFallingBlocks();
+            //AddBlockAt(3, 0);
         }
 
         private void AddBlockAt(int x, int y)
@@ -98,9 +99,10 @@ namespace Ts
             // randomly generate the next shape
 
             fallingBlocks.Add(new Position(spawnPositionX, spawnPositionY));
-            
-            // this call needs to be deleted after the builder classes for game objects are created
+            fallingBlocks.Add(new Position(spawnPositionX, spawnPositionY + 1));
+
             AddBlockAt(spawnPositionX, spawnPositionY);
+            AddBlockAt(spawnPositionX, spawnPositionY + 1);
         }
 
         // methods to update the state of field/grid
@@ -110,20 +112,39 @@ namespace Ts
 
             foreach (var fallingBlock in fallingBlocks)
             {
-                if (fallingBlock.X == 0)
+                int x = fallingBlock.X;
+                int y = fallingBlock.Y;
+
+                bool IsInFirstColumn = (fallingBlock.X == 0);
+
+                if (IsInFirstColumn)
                 {
                     IsMovable = false;
                     break;
-                }    
+                }
+                else
+                {
+                    bool HasLeftNeighbor = (grid[x - 1][y].Value > 1);
+                    if (HasLeftNeighbor)
+                    {
+                        IsMovable = false;
+                        break;
+                    }
+                }
             }
-
+           
             if (IsMovable)
             {
+                // move all falling blocks to the left by 1
                 for (int i = 0; i < fallingBlocks.Count; i++)
                 {
-                    grid[fallingBlocks[i].X][fallingBlocks[i].Y].Value = 0;
-                    fallingBlocks[i] = new Position(fallingBlocks[i].X - 1, fallingBlocks[i].Y);
-                    grid[fallingBlocks[i].X][fallingBlocks[i].Y].Value = 1;
+                    int currentX = fallingBlocks[i].X;
+                    int currentY = fallingBlocks[i].Y;
+                    int cellValue = grid[currentX][currentY].Value;
+
+                    grid[currentX][currentY].Value = 0;
+                    fallingBlocks[i] = new Position(currentX - 1, currentY);
+                    grid[currentX - 1][currentY].Value = cellValue;
                 }
             }
         }
