@@ -149,5 +149,47 @@ namespace Ts
             }
         }
 
+        public void MoveRight()
+        {
+            bool IsMovable = true;
+
+            foreach (var fallingBlock in fallingBlocks)
+            {
+                int x = fallingBlock.X;
+                int y = fallingBlock.Y;
+
+                bool IsInLastColumn = (fallingBlock.X == grid.Count);
+
+                if (IsInLastColumn)
+                {
+                    IsMovable = false;
+                    break;
+                }
+                else
+                {
+                    bool HasRightNeighbor = (grid[x + 1][y].Value > 1);
+                    if (HasRightNeighbor)
+                    {
+                        IsMovable = false;
+                        break;
+                    }
+                }
+            }
+
+            if (IsMovable)
+            {
+                // move all falling blocks to the right by 1
+                for (int i = 0; i < fallingBlocks.Count; i++)
+                {
+                    int currentX = fallingBlocks[i].X;
+                    int currentY = fallingBlocks[i].Y;
+                    int cellValue = grid[currentX][currentY].Value;
+
+                    grid[currentX][currentY].Value = 0;
+                    fallingBlocks[i] = new Position(currentX + 1, currentY);
+                    grid[currentX + 1][currentY].Value = cellValue;
+                }
+            }
+        }
     }
 }
