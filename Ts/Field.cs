@@ -132,7 +132,7 @@ namespace Ts
                     }
                 }
             }
-           
+
             if (IsMovable)
             {
                 // move all falling blocks to the left by 1
@@ -190,6 +190,55 @@ namespace Ts
                     grid[currentX + 1][currentY].Value = cellValue;
                 }
             }
+        }
+
+        public void MoveDown()
+        {
+            //determine if the current block shape can be moved down
+            bool IsMovable = true;
+
+            foreach (var fallingBlock in fallingBlocks)
+            {
+                bool IsBottomRow = (fallingBlock.Y == (grid.Count - 1));
+
+                if (IsBottomRow)
+                {
+                    IsMovable = false;
+                    break;
+                }
+                else
+                {
+                    bool HasBottomNeighbor = (grid[fallingBlock.X][fallingBlock.Y + 2].Value > 0);
+                    if (HasBottomNeighbor)
+                    {
+                        IsMovable = false;
+                        break;
+                    }
+                }
+            }
+
+            //if the block shape can be moved down move it down
+            if (IsMovable)
+            {
+                for (int i = 0; i < fallingBlocks.Count; i++)
+                {
+                    int currentX = fallingBlocks[i].X;
+                    int currentY = fallingBlocks[i].Y;
+                    int cellValue = grid[currentX][currentY].Value;
+
+                    grid[currentX][currentY].Value = 0;
+                    fallingBlocks[i] = new Position(currentX, currentY + 2);
+                    grid[currentX][currentY + 2].Value = cellValue;
+                }
+                
+                //after the block is moved test if the grid contains triples
+                CheckForTriples();
+            }
+
+        }
+
+        private void CheckForTriples()
+        { 
         }
     }
 }
