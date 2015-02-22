@@ -37,6 +37,23 @@ namespace Ts
                 }
             }
 
+            for (int k = 0; k < field.Width - 1; k++)
+            {
+                GameObject gameObject = new GameObject();
+
+                PositionComponent positionComponent = new PositionComponent(
+                    field.Position.X + (field.CellSize + 1) * k + (field.CellSize/2),
+                    field.Position.Y + (field.CellSize + 1) * (field.Height - 1) + field.CellSize);
+
+                TextureAtlas halfTexture = new TextureAtlas(texture.Texture, 2, 1, new Position(1, 0));
+                halfTexture.Height = texture.Height / 2;
+
+                gameObject.PositionComponent = positionComponent;
+                gameObject.DrawableComponent = new DrawableComponent(halfTexture, positionComponent);
+
+                gameObjects.Add(gameObject);
+            }
+
             return gameObjects;
         }
     }
