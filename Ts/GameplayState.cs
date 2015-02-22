@@ -17,8 +17,8 @@ namespace Ts
         //reference to a class that manages the game logic of the gameplay
         private const int WIDTH = 10;
         private const int HEIGHT = 5;
-        private const float FIELD_X = 10;
-        private const float FIELD_Y = 10;
+        private const float FIELD_X = 50;
+        private const float FIELD_Y = 50;
         private const string BACKGROUND_TEXTURE = "border";
         private const string BLOCK_TEXTURE = "blue";
 
@@ -63,6 +63,8 @@ namespace Ts
                 field.MoveLeft();
             if (InputManager.KeyPressed(Keys.Right))
                 field.MoveRight();
+            if (InputManager.KeyPressed(Keys.Down))
+                field.MoveDown();
         }
 
         public void Draw(GameTime gameTime)

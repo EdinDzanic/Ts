@@ -65,15 +65,15 @@ namespace Ts
                 {
                     float X = position.X;
                     float Y = position.Y;
-                    if (columnIndex % 2 != 0)
+                    if (rowIndex % 2 != 0)
                     {
-                        X += (CellSize + 1) / 2 + (CellSize + 1) * rowIndex + 1;
-                        Y += (CellSize + 1) / 2 + (CellSize + 1) * (columnIndex / 2) + 1;
+                        X += (CellSize + 1) / 2 + (CellSize + 1) * columnIndex + 1;
+                        Y += (CellSize + 1) / 2 + (CellSize + 1) * (rowIndex / 2) + 1;
                     }
                     else
                     {
-                        X += (CellSize + 1) * rowIndex + 1;
-                        Y += (CellSize + 1) * (columnIndex / 2) + 1;
+                        X += (CellSize + 1) * columnIndex + 1;
+                        Y += (CellSize + 1) * (rowIndex / 2) + 1;
                     }
                     grid[rowIndex].Add(new CellInfo(0, X, Y));
                 }
@@ -91,7 +91,7 @@ namespace Ts
         // method to create next falling block
         private void CreateFallingBlocks()
         {
-            int spawnPositionX = 4;
+            int spawnPositionX = 0;
             int spawnPositionY = 0;
 
             fallingBlocks.Clear();
@@ -99,10 +99,10 @@ namespace Ts
             // randomly generate the next shape
 
             fallingBlocks.Add(new Position(spawnPositionX, spawnPositionY));
-            fallingBlocks.Add(new Position(spawnPositionX, spawnPositionY + 1));
+            fallingBlocks.Add(new Position(spawnPositionX + 1, spawnPositionY));
 
             AddBlockAt(spawnPositionX, spawnPositionY);
-            AddBlockAt(spawnPositionX, spawnPositionY + 1);
+            AddBlockAt(spawnPositionX + 1, spawnPositionY);
         }
 
         // methods to update the state of field/grid
@@ -115,7 +115,7 @@ namespace Ts
                 int x = fallingBlock.X;
                 int y = fallingBlock.Y;
 
-                bool IsInFirstColumn = (fallingBlock.X == 0);
+                bool IsInFirstColumn = (fallingBlock.Y == 0);
 
                 if (IsInFirstColumn)
                 {
@@ -124,7 +124,7 @@ namespace Ts
                 }
                 else
                 {
-                    bool HasLeftNeighbor = (grid[x - 1][y].Value > 1);
+                    bool HasLeftNeighbor = (grid[x][y - 1].Value > 1);
                     if (HasLeftNeighbor)
                     {
                         IsMovable = false;
@@ -143,8 +143,8 @@ namespace Ts
                     int cellValue = grid[currentX][currentY].Value;
 
                     grid[currentX][currentY].Value = 0;
-                    fallingBlocks[i] = new Position(currentX - 1, currentY);
-                    grid[currentX - 1][currentY].Value = cellValue;
+                    fallingBlocks[i] = new Position(currentX, currentY - 1);
+                    grid[currentX][currentY - 1].Value = cellValue;
                 }
             }
         }
@@ -158,7 +158,7 @@ namespace Ts
                 int x = fallingBlock.X;
                 int y = fallingBlock.Y;
 
-                bool IsInLastColumn = (fallingBlock.X == grid[y].Count - 1);
+                bool IsInLastColumn = (fallingBlock.Y == grid[x].Count - 1);
 
                 if (IsInLastColumn)
                 {
@@ -167,7 +167,7 @@ namespace Ts
                 }
                 else
                 {
-                    bool HasRightNeighbor = (grid[x + 1][y].Value > 1);
+                    bool HasRightNeighbor = (grid[x][y + 1].Value > 1);
                     if (HasRightNeighbor)
                     {
                         IsMovable = false;
@@ -186,8 +186,8 @@ namespace Ts
                     int cellValue = grid[currentX][currentY].Value;
 
                     grid[currentX][currentY].Value = 0;
-                    fallingBlocks[i] = new Position(currentX + 1, currentY);
-                    grid[currentX + 1][currentY].Value = cellValue;
+                    fallingBlocks[i] = new Position(currentX, currentY + 1);
+                    grid[currentX][currentY + 1].Value = cellValue;
                 }
             }
         }
@@ -199,7 +199,7 @@ namespace Ts
 
             foreach (var fallingBlock in fallingBlocks)
             {
-                bool IsBottomRow = (fallingBlock.Y == (grid.Count - 1));
+                bool IsBottomRow = ((fallingBlock.X + 2) > (grid.Count - 1));
 
                 if (IsBottomRow)
                 {
@@ -208,7 +208,7 @@ namespace Ts
                 }
                 else
                 {
-                    bool HasBottomNeighbor = (grid[fallingBlock.X][fallingBlock.Y + 2].Value > 0);
+                    bool HasBottomNeighbor = (grid[fallingBlock.X + 2][fallingBlock.Y].Value > 0);
                     if (HasBottomNeighbor)
                     {
                         IsMovable = false;
@@ -227,10 +227,10 @@ namespace Ts
                     int cellValue = grid[currentX][currentY].Value;
 
                     grid[currentX][currentY].Value = 0;
-                    fallingBlocks[i] = new Position(currentX, currentY + 2);
-                    grid[currentX][currentY + 2].Value = cellValue;
+                    fallingBlocks[i] = new Position(currentX + 2, currentY);
+                    grid[currentX + 2][currentY].Value = cellValue;
                 }
-                
+
                 //after the block is moved test if the grid contains triples
                 CheckForTriples();
             }
@@ -238,7 +238,7 @@ namespace Ts
         }
 
         private void CheckForTriples()
-        { 
+        {
         }
     }
 }
