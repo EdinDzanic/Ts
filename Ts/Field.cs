@@ -232,7 +232,7 @@ namespace Ts
             }
         }
 
-        private bool IsPartOfFalligBlock(int x, int y)
+        private bool IsPartOfFallingBlock(int x, int y)
         {
             for (int i = 0; i < fallingBlocks.Count; i++)
             {
@@ -260,7 +260,7 @@ namespace Ts
                 {
                     bool HasBottomNeighbor = 
                         (grid[fallingBlock.X + 2][fallingBlock.Y].Value > 0 &&
-                        !IsPartOfFalligBlock(fallingBlock.X + 2, fallingBlock.Y));
+                        !IsPartOfFallingBlock(fallingBlock.X + 2, fallingBlock.Y));
                     if (HasBottomNeighbor)
                     {
                         IsMovable = false;
