@@ -20,7 +20,7 @@ namespace Ts
         private const float FIELD_X = 50;
         private const float FIELD_Y = 50;
         private const string BACKGROUND_TEXTURE = "border";
-        private const string BLOCK_TEXTURE = "blue";
+        private const string BLOCK_TEXTURE = "blockAtlas";
 
         private FieldBackgroundBuilder staticGameObjectBuilder;
         private FieldBlocksBuilder dynamicGameObjectBuilder;
@@ -33,7 +33,7 @@ namespace Ts
             Texture2D texture = game.Content.Load<Texture2D>(BACKGROUND_TEXTURE);
             Texture2D blockTexture = game.Content.Load<Texture2D>(BLOCK_TEXTURE);
             TextureAtlas atlas = new TextureAtlas(texture);
-            TextureAtlas blockAtlas = new TextureAtlas(blockTexture);
+            TextureAtlas blockAtlas = new TextureAtlas(blockTexture, 2, 2);
             int width = 48;
             int height = 48;
             atlas.Width = width + 2; atlas.Height = height + 2;
